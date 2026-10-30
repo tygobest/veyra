@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#090b14"><title>Veyra — анализ лица</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head><body>
+
+<header class="topbar"><div class="brand"><span class="logo">V</span><span>VEYRA<span class="brand-light"> FACE</span></span></div><div class="privacy"><span class="dot"></span> Локальная обработка</div></header>
+<div class="shell"><aside class="sidebar"><p class="eyebrow">РАБОЧЕЕ ПРОСТРАНСТВО</p>
+<button class="nav active" data-section="scanner"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><circle cx="12" cy="10" r="3"/><path d="M7.5 17c.8-2 2.3-3 4.5-3s3.7 1 4.5 3"/></svg> Сканер лица</button>
+<button class="nav" data-section="symmetry"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 3v18M5 6l5 6-5 6M19 6l-5 6 5 6"/></svg> Симметрия</button>
+<button class="nav" data-section="proportions"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M4 5h16M4 12h16M4 19h16M7 3v4m5 3v4m5 3v4"/></svg> Пропорции</button>
+<button class="nav" data-section="history"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> История</button>
+<div class="side-note"><strong>✦ Приватность прежде всего</strong>Анализ идёт прямо в браузере. Фото никуда не отправляется и не сохраняется — в истории лишь крошечная миниатюра и числа.</div></aside>
+<main class="main"><div class="heading"><div><p class="eyebrow">VEYRA / FACE ANALYTICS</p><h1>Анализ лица<span class="accent">.</span></h1><p class="subtitle">Veyra находит 478 ориентиров лица и считает симметрию и пропорции — только измерения, без оценок привлекательности.</p></div><div class="version">V <b>1.0</b></div></div>
+<div class="view" id="view-scanner">
+<div class="grid"><section class="panel"><div class="panel-head"><div><p class="eyebrow">ШАГ 01</p><h2>Добавь фотографию</h2></div><span class="step">01 / 03</span></div>
+<label class="dropzone" id="dropzone" for="photoInput"><input id="photoInput" type="file" accept="image/*" hidden><span class="upload-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 16V4m-5 5 5-5 5 5"/><path d="M5 14v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5"/></svg></span><strong>Выбери изображение</strong><span>Нажми, чтобы открыть галерею</span><small>Лицо прямо, ровный свет<br>JPG, PNG или WEBP · до 15 МБ</small></label>
+<div class="privacy-line"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg> Фото обрабатывается на этом устройстве.</div>
+<button class="btn btn-primary full" id="analyzeBtn" disabled style="margin-bottom:8px">Анализировать</button>
+<button class="btn btn-secondary full" id="clearBtn" disabled><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M3 6h18M8 6V4h8v2m-9 0 1 14h8l1-14M10 10v6m4-6v6"/></svg> Убрать фотографию</button></section>
+<section class="panel"><div class="panel-head"><div><p class="eyebrow">ШАГ 02</p><h2>Предпросмотр</h2></div><span class="step"><span class="dot"></span> LOCAL</span></div><div class="stage" id="stage"><div class="empty" id="empty"><svg viewBox="0 0 48 48" fill="none" stroke-width="1.2"><path d="M24 5c-9 0-15 7-15 17v5c0 9 7 16 15 16s15-7 15-16v-5C39 12 33 5 24 5Z"/><path d="M16 21h.1M32 21h.1M18 31c4 4 8 4 12 0M9 18c2-7 8-12 15-12s13 5 15 12"/></svg><strong>Здесь появится фото</strong><span>Добавь изображение, чтобы начать</span></div><img id="photo" alt="Предпросмотр фотографии" hidden><canvas id="guides" hidden></canvas><span class="badge" id="badge" hidden>ПРЕДПРОСМОТР</span></div><div class="status" id="status"></div><div class="preview-controls"><span id="fileInfo">Файл не выбран</span><span class="toolbar"><button class="linkbtn" id="ptsBtn" disabled>Точки</button><button class="linkbtn" id="guideBtn" disabled>Линии</button></span></div></section></div>
+
+<section class="panel results"><div class="panel-head"><div><p class="eyebrow">ШАГ 03</p><h2>Результаты</h2></div><span class="step" id="resStep">ЖДУ ФОТО</span></div>
+<div class="metrics"><div class="metric"><span>Ориентиры лица</span><strong class="na" id="mLand">—</strong><small id="mLandS">Найду после анализа</small></div><div class="metric"><span>Симметрия</span><strong class="na" id="mSym">—</strong><small>Баллы из 100 по парным точкам</small></div><div class="metric"><span>Пропорции</span><strong class="na" id="mProp">—</strong><small>Измерений в ориентировочных диапазонах</small></div></div>
+<div id="note"></div>
+<div class="notice"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg><p><b>Честный результат.</b> Все числа считаются по реальным точкам лица. Это геометрия, а не оценка внешности и не медицинский инструмент.</p></div></section>
+</div>
+<div class="view" id="view-symmetry" hidden><section class="panel"><div class="panel-head"><div><p class="eyebrow">МОДУЛЬ</p><h2>Симметрия</h2></div></div><div id="symBody"></div></section></div>
+<div class="view" id="view-proportions" hidden><section class="panel"><div class="panel-head"><div><p class="eyebrow">МОДУЛЬ</p><h2>Пропорции</h2></div></div><div id="propBody"></div></section></div>
+<div class="view" id="view-history" hidden><section class="panel"><div class="panel-head"><div><p class="eyebrow">МОДУЛЬ</p><h2>История</h2></div><button class="btn btn-secondary" id="histClear">Очистить</button></div><div id="histBody"></div></section></div>
+<footer class="footer"><span>VEYRA © 2026</span><span>Визуальные измерения · Не медицинский инструмент</span></footer></main></div>
+
+<script src="config.js"></script>
+<script src="analysis.js"></script>
+<script src="detector.js"></script>
+<script src="history.js"></script>
+<script src="app.js"></script>
+</body></html>
